@@ -1,0 +1,9 @@
+# Environment variables (contains your API keys -- never push this)
+.env
+
+# Virtual environment folder
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
