@@ -6,3 +6,6 @@ langchain-text-splitters
 faiss-cpu
 tiktoken
 python-dotenv
+ragas==0.2.9
+datasets
+numpy
