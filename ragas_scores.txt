@@ -1,0 +1,8 @@
+RAGAS Evaluation Scores
+Video: Recurrent Neural Networks (RNNs) — StatQuest
+URL: https://www.youtube.com/watch?v=AsNTP8Kwu80
+
+Faithfulness      : 0.87
+Answer Relevancy  : 0.96
+Context Precision : 0.87
+Context Recall    : 1.00

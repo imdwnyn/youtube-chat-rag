@@ -62,6 +62,8 @@ All three are injected into the prompt on every question so the LLM always has f
 project/
 │
 ├── main.py            # Full pipeline: transcript → RAG → chat loop
+├── evaluate.py        # RAGAS evaluation script
+├── ragas_scores.txt   # Saved evaluation scores
 ├── .env               # API keys and config values (never push this)
 ├── .gitignore         # Excludes .env, venv, cache files
 ├── requirements.txt   # All dependencies
@@ -81,6 +83,7 @@ project/
 | `faiss-cpu` | In-memory vector database for similarity search |
 | `openai` | GPT-4o-mini for answer generation |
 | `python-dotenv` | Loads API keys from .env file |
+| `ragas` | RAG evaluation framework |
 
 ---
 
@@ -198,6 +201,42 @@ All tunable values live in `.env` — no need to touch `main.py` to change behav
 
 ---
 
+## Evaluation
+
+The pipeline was evaluated using RAGAS, an LLM-based evaluation framework that measures 4 metrics:
+
+| Metric | What it measures |
+|---|---|
+| Faithfulness | Is the answer grounded in the retrieved chunks, or did the LLM hallucinate? |
+| Answer Relevancy | Does the answer actually address the question asked? |
+| Context Precision | Of the chunks retrieved, how many were actually relevant? |
+| Context Recall | Of all relevant info in the transcript, how much was retrieved? |
+
+### Results
+
+Evaluated on **StatQuest: Recurrent Neural Networks** — a verbally dense lecture where every concept is explained out loud, making it ideal source material for transcript-based RAG.
+
+| Metric | Score |
+|---|---|
+| Faithfulness | 0.87 |
+| Answer Relevancy | 0.96 |
+| Context Precision | 0.87 |
+| Context Recall | 1.00 |
+
+### What the scores tell us
+
+The pipeline achieves near-perfect retrieval (Context Recall: 1.00) and high answer quality (Answer Relevancy: 0.96) on verbally dense content. Scores are strongest on text-heavy videos where the transcript carries the full meaning without relying on visuals.
+
+### Running evaluation yourself
+
+```bash
+python evaluate.py
+```
+
+Scores are saved to `ragas_scores.txt` after each run.
+
+---
+
 ## Future Improvements
 
 These are planned enhancements that weren't included in the current version to keep the codebase beginner-friendly:
@@ -228,6 +267,12 @@ Extend the URL parser to accept YouTube playlist URLs, fetch all video transcrip
 
 ---
 
+## License
+
+MIT
+
+---
+
 ### Author
 
-Dwinyan Deb
+Dwinayan Deb
